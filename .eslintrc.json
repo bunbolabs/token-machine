@@ -1,0 +1,35 @@
+{
+  "plugins": ["simple-import-sort"],
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "padding-line-between-statements": [
+      "error",
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": "return"
+      },
+      {
+        "blankLine": "always",
+        "prev": ["const", "let", "var"],
+        "next": "*"
+      },
+      {
+        "blankLine": "any",
+        "prev": ["const", "let", "var"],
+        "next": ["const", "let", "var"]
+      }
+    ],
+    "react/jsx-sort-props": [
+      "warn",
+      {
+        "callbacksLast": true,
+        "shorthandFirst": true,
+        "noSortAlphabetically": false,
+        "reservedFirst": true
+      }
+    ]
+  }
+}
