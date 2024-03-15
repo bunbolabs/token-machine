@@ -1,97 +1,183 @@
-import { ArrowUpRight } from 'lucide-react'
-import { Line, LineChart, ResponsiveContainer } from 'recharts'
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 
+} from "@/components/ui/table"
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card"
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
+import { IoIosInformationCircleOutline } from "react-icons/io";
 
-const data = [
-  {
-    revenue: 10400,
-    subscription: 240,
-  },
-  {
-    revenue: 14405,
-    subscription: 300,
-  },
-  {
-    revenue: 9400,
-    subscription: 200,
-  },
-  {
-    revenue: 8200,
-    subscription: 278,
-  },
-  {
-    revenue: 7000,
-    subscription: 189,
-  },
-  {
-    revenue: 9600,
-    subscription: 239,
-  },
-  {
-    revenue: 11244,
-    subscription: 278,
-  },
-  {
-    revenue: 26475,
-    subscription: 189,
-  },
-]
+const data = []
 
 export default function TokenSecurity() {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-base font-normal">Token Price</CardTitle>
+        <CardTitle className="text-base font-normal">Security</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="text-2xl font-bold">$0.000023</div>
-        <div className={cn('flex items-center text-xs text-muted-foreground', 'text-red-300')}>
-          <ArrowUpRight width={17} />
-          <span>12,3%</span>
-        </div>
-
-        <div className="h-[80px]">
-          <ResponsiveContainer height="100%" width="100%">
-            <LineChart
-              data={data}
-              margin={{
-                top: 5,
-                right: 10,
-                left: 10,
-                bottom: 0,
-              }}
-            >
-              <Line
-                activeDot={{
-                  r: 6,
-                  style: { fill: 'var(--theme-primary)', opacity: 0.25 },
-                }}
-                dataKey="revenue"
-                strokeWidth={2}
-                style={
-                  {
-                    stroke: 'var(--theme-primary)',
-                    '--theme-primary': 'hsl(0 0% 98%)',
-                  } as React.CSSProperties
-                }
-                type="monotone"
-              />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-
-        <div className={'mt-4 flex w-full gap-3'}>
-          {Array(6)
-            .fill(null)
-            .map((_, i) => (
-              <div key={i} className={cn('flex flex-1 flex-col gap-1 rounded-lg border p-3', 'border-green-300')}>
-                <span className={'text-xs text-muted-foreground'}>30 minutes</span>
-                <span className={'text-lg font-semibold text-green-300'}>+123,32%</span>
-              </div>
-            ))}
-        </div>
+        <Table >
+          <TableBody>
+            <TableRow>
+              <TableCell className="font-medium flex items-center gap-1">
+                <HoverCard>
+                <HoverCardTrigger><IoIosInformationCircleOutline /></HoverCardTrigger>
+                <HoverCardContent>
+                  Mint function enables contract owner to issue more tokens and cause the coin price to plummet. It is extremely risky. However if ownership is renounced, or is changed to a burn address, this function will be disabled.
+                </HoverCardContent>
+              </HoverCard>
+                Mintable
+              </TableCell>
+              <TableCell>NO</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium flex items-center gap-1">
+                <HoverCard>
+                  <HoverCardTrigger><IoIosInformationCircleOutline /></HoverCardTrigger>
+                  <HoverCardContent>
+                    The token information such as name, logo, website address can be changed by the owner.
+                  </HoverCardContent>
+                </HoverCard>
+                Mutable Info
+              </TableCell>
+              <TableCell>YES</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium flex items-center gap-1">
+                <HoverCard>
+                  <HoverCardTrigger><IoIosInformationCircleOutline /></HoverCardTrigger>
+                  <HoverCardContent>
+                    The token is first minted at this transaction. There can be several other mint events after this.
+                  </HoverCardContent>
+                </HoverCard>
+                First Mint Tx
+              </TableCell>
+              <TableCell>
+                5efytCDjwERW2JbKkStkvscduABiiB4ZYbeNPBi9CgU7ahPtVFXw6bHt4xyftF6U9qjhcBKb3CdtZ1oobkgSTsUb
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium flex items-center gap-1">
+                <HoverCard>
+                  <HoverCardTrigger><IoIosInformationCircleOutline /></HoverCardTrigger>
+                  <HoverCardContent>
+                    The token is first minted at this time. There can be several other mint events after this.
+                  </HoverCardContent>
+                </HoverCard>
+                First Mint Time
+              </TableCell>
+              <TableCell>03-10-2024</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium flex items-center gap-1">
+                <HoverCard>
+                  <HoverCardTrigger><IoIosInformationCircleOutline /></HoverCardTrigger>
+                  <HoverCardContent>
+                    The token is first created at this transaction. There can be several other mint events after this.
+                  </HoverCardContent>
+                </HoverCard>
+                Creation Tx
+              </TableCell>
+              <TableCell>51LeY4T4EbogSb5pwf5MD4EpZXvoHzfoxdQmx5SAcGnC3yNeSwmXiCzRDHZfMek2yi7THC7yqAKBouCyS1utPqf9</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium flex items-center gap-1">
+                <HoverCard>
+                  <HoverCardTrigger><IoIosInformationCircleOutline /></HoverCardTrigger>
+                  <HoverCardContent>
+                    If token ownership is renounced, no one can execute functions such as mint more tokens.
+                  </HoverCardContent>
+                </HoverCard>
+                Ownership Renounced
+              </TableCell>
+              <TableCell>YES</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium flex items-center gap-1">
+                <HoverCard>
+                  <HoverCardTrigger><IoIosInformationCircleOutline /></HoverCardTrigger>
+                  <HoverCardContent>
+                    {/* eslint-disable-next-line react/no-unescaped-entities */}
+                    The contract creator's address.
+                  </HoverCardContent>
+                </HoverCard>
+                Creator Address
+              </TableCell>
+              <TableCell>4Tj6HGbdRYcKo8pca6JrjnHJCPJsPksaSeQ4tSQWAeS9</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium flex items-center gap-1">
+                <HoverCard>
+                  <HoverCardTrigger><IoIosInformationCircleOutline /></HoverCardTrigger>
+                  <HoverCardContent>
+                    The token balance of contract creator.
+                  </HoverCardContent>
+                </HoverCard>
+                Creator Balance
+              </TableCell>
+              <TableCell>109.86M</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium flex items-center gap-1">
+                <HoverCard>
+                  <HoverCardTrigger><IoIosInformationCircleOutline /></HoverCardTrigger>
+                  <HoverCardContent>
+                    The percentage of tokens held by the contract creator.
+                  </HoverCardContent>
+                </HoverCard>
+                Token Percentage of Creator
+              </TableCell>
+              <TableCell>10.99%</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium flex items-center gap-1">
+                <HoverCard>
+                  <HoverCardTrigger><IoIosInformationCircleOutline /></HoverCardTrigger>
+                  <HoverCardContent>
+                    {/* eslint-disable-next-line react/no-unescaped-entities */}
+                    The token's update authority address.
+                  </HoverCardContent>
+                </HoverCard>
+                Update Authority (UA)
+              </TableCell>
+              <TableCell>4Tj6HGbdRYcKo8pca6JrjnHJCPJsPksaSeQ4tSQWAeS9</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium flex items-center gap-1">
+                <HoverCard>
+                  <HoverCardTrigger><IoIosInformationCircleOutline /></HoverCardTrigger>
+                  <HoverCardContent>
+                    The token balance of token Update Authority.
+                  </HoverCardContent>
+                </HoverCard>
+                UA Balance
+              </TableCell>
+              <TableCell>109.86M</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium flex items-center gap-1">
+                <HoverCard>
+                  <HoverCardTrigger><IoIosInformationCircleOutline /></HoverCardTrigger>
+                  <HoverCardContent>
+                    The percentage of tokens held by the token Update Authority.
+                  </HoverCardContent>
+                </HoverCard>
+                UA Percentage
+              </TableCell>
+              <TableCell>10.99%</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
       </CardContent>
     </Card>
   )
