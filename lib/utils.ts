@@ -9,6 +9,6 @@ export function computeAvatarUrl(avatar: string) {
   return `https://avatar.vercel.sh/${avatar}.png`
 }
 
-export function formatWalletAddress(address: string, head = 6, tail = 4) {
+export function formatWalletAddress(address: string, head = 6, tail = 6) {
   return `${address.slice(0, head)}...${address.slice(-tail)}`
 }
