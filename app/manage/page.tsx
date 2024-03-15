@@ -1,8 +1,27 @@
-export default function Manage() {
+'use client'
+
+import TokenPrice from '@/app/manage/components/price'
+
+import TokenInformation from './components/information'
+
+export default function Page() {
   return (
-    <main className={'grid grid-cols-10'}>
-      <div className={'col-start-1 col-end-2 border border-black'}>Sidebar</div>
-      <div className={'col-start-2 col-end-11 border border-black'}>Content</div>
+    <main className="container mt-8">
+      <div className={'space-y-8'}>
+        <div className=" grid grid-cols-11 gap-4">
+          <div className="col-span-4">
+            <TokenInformation />
+          </div>
+
+          <div className="col-span-7">
+            <TokenPrice />
+          </div>
+
+          <div className="col-span-7">
+            <TokenPrice />
+          </div>
+        </div>
+      </div>
     </main>
   )
 }
