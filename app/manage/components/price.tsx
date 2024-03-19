@@ -1,10 +1,16 @@
 import { ArrowUpRight } from 'lucide-react'
+import React from 'react'
 import { Line, LineChart, ResponsiveContainer } from 'recharts'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 
-const data = [
+interface DataPoint {
+  revenue: number;
+  subscription: number;
+}
+
+const data: DataPoint[] = [
   {
     revenue: 10400,
     subscription: 240,
@@ -39,7 +45,8 @@ const data = [
   },
 ]
 
-export default function TokenPrice() {
+export default function TokenPrice(): JSX.Element {
+  // @ts-ignore
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -69,13 +76,8 @@ export default function TokenPrice() {
                   style: { fill: 'var(--theme-primary)', opacity: 0.25 },
                 }}
                 dataKey="revenue"
+                stroke="green"
                 strokeWidth={2}
-                style={
-                  {
-                    stroke: 'var(--theme-primary)',
-                    '--theme-primary': 'hsl(0 0% 98%)',
-                  } as React.CSSProperties
-                }
                 type="monotone"
               />
             </LineChart>
@@ -86,7 +88,13 @@ export default function TokenPrice() {
           {Array(6)
             .fill(null)
             .map((_, i) => (
-              <div key={i} className={cn('flex flex-1 flex-col gap-1 rounded-lg border p-3', 'border-green-300')}>
+              <div
+                key={i}
+                className={cn(
+                  'flex flex-1 flex-col gap-1 rounded-lg border p-3',
+                  'border-green-300',
+                )}
+              >
                 <span className={'text-xs text-muted-foreground'}>30 minutes</span>
                 <span className={'text-lg font-semibold text-green-300'}>+123,32%</span>
               </div>

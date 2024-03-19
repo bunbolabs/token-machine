@@ -29,6 +29,24 @@ const data = [
 ]
 
 export default function TokenPools() {
+  const formatVolume = (volume: number) => {
+    let result = volume.toString()
+    let suffix = ''
+
+    if (volume >= 1e9) {
+      result = ((volume / 1e9).toFixed(1))
+      suffix = 'B'
+    } else if (volume >= 1e6) {
+      result = (volume / 1e6).toFixed(1)
+      suffix = 'M'
+    } else if (volume >= 1e3) {
+      result = (volume / 1e3).toFixed(1)
+      suffix = 'K'
+    }
+
+    return `$${result}${suffix}`
+  }
+
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -45,7 +63,7 @@ export default function TokenPools() {
                       <span>{item.icon}</span>
                       <span className="font-medium">{item.name}</span>
                     </div>
-                    <span className="text-gray-500">{item.volume.toLocaleString()}</span>
+                    <span className="text-gray-500">{formatVolume(item.volume)}</span>
                   </div>
                 </TableCell>
               </TableRow>

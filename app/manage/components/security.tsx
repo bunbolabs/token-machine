@@ -106,7 +106,9 @@ export default function TokenSecurity() {
                           {row[0]}
                         </TableCell>
                         <TableCell>
-                          {row[2]}
+                          {(row[2].length > 10) ? (
+                            <a href={'https://google.com'}>${row[2].slice(0, 5)}...${row[2].slice(-5)}</a>
+                          ) : row[2]}
                         </TableCell>
                       </TableRow>
                     ))
