@@ -1,52 +1,105 @@
-import { ArrowUpRight } from 'lucide-react'
-import { Line, LineChart, ResponsiveContainer } from 'recharts'
-
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
 
 const data = [
   {
-    revenue: 10400,
-    subscription: 240,
+    no: 1,
+    address: '0x',
+    percent: 10.9869,
   },
   {
-    revenue: 14405,
-    subscription: 300,
+    no: 2,
+    address: '0x',
+    percent: 10.9869,
   },
   {
-    revenue: 9400,
-    subscription: 200,
+    no: 3,
+    address: '0x',
+    percent: 10.9869,
   },
   {
-    revenue: 8200,
-    subscription: 278,
+    no: 4,
+    address: '0x',
+    percent: 10.9869,
   },
   {
-    revenue: 7000,
-    subscription: 189,
+    no: 5,
+    address: '0x',
+    percent: 10.9869,
   },
   {
-    revenue: 9600,
-    subscription: 239,
+    no: 6,
+    address: '0x',
+    percent: 10.9869,
   },
   {
-    revenue: 11244,
-    subscription: 278,
+    no: 7,
+    address: '0x',
+    percent: 10.9869,
   },
   {
-    revenue: 26475,
-    subscription: 189,
+    no: 8,
+    address: '0x',
+    percent: 10.9869,
+  },
+  {
+    no: 9,
+    address: '0x',
+    percent: 10.9869,
+  },
+  {
+    no: 10,
+    address: '0x',
+    percent: 10.9869,
   },
 ]
 
 export default function TokenHolders() {
   return (
     <Card>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-base font-normal">Token Holders</CardTitle>
-      </CardHeader>
       <CardContent>
-
+        <Accordion collapsible type="single">
+          <AccordionItem value="item-1">
+            <AccordionTrigger>Top 10 Token Holders (20.08%)</AccordionTrigger>
+            <AccordionContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>No</TableHead>
+                    <TableHead>Address</TableHead>
+                    <TableHead>%</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {
+                    data.map((row, index) => (
+                      <TableRow key={index}>
+                        <TableCell>{'#' + row.no}</TableCell>
+                        <TableCell>{row.address}</TableCell>
+                        <TableCell>{row.percent}</TableCell>
+                      </TableRow>
+                    ))
+                  }
+                </TableBody>
+              </Table>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </CardContent>
     </Card>
   )
