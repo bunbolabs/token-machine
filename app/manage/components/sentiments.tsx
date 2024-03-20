@@ -1,12 +1,10 @@
 import * as Avatar from '@radix-ui/react-avatar'
 import { AvatarImage } from '@radix-ui/react-avatar'
 import * as Slider from '@radix-ui/react-slider'
-import { Text } from '@react-three/drei'
-import { FaHeart, FaHeartBroken } from 'react-icons/fa'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { cn } from '@/lib/utils'
+import {Heart, HeartCrack} from "lucide-react";
 import confusedFace from '@/public/image/sentiments/confused.png'
 import happyFace from '@/public/image/sentiments/happy-face.png'
 import nearSadFace from '@/public/image/sentiments/near-sad.png'
@@ -109,11 +107,11 @@ export default function TokenSentiments() {
 
           <div className={'flex flex-row justify-between'}>
             <Button variant="outline">
-              <FaHeart />
+            <Heart />            
             </Button>
 
             <Button variant="outline">
-              <FaHeartBroken />
+            <HeartCrack />
             </Button>
           </div>
         </div>
