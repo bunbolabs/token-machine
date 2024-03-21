@@ -1,11 +1,11 @@
 'use-client'
 import 'react-toastify/dist/ReactToastify.css'
+import fetch from 'isomorphic-unfetch';
 
 import * as Tooltip from '@radix-ui/react-tooltip'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Copy } from 'lucide-react'
 import { toast, ToastContainer } from 'react-toastify'
-
 import { Card, CardContent } from '@/components/ui/card'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { cn } from '@/lib/utils'
@@ -63,45 +63,92 @@ const data = [
   },
 ]
 
-interface Account{
-  address: string,
-  mint: string,
-  owner: string,
-  amount: number,
-  delegated_amount: number,
-  frozen: boolean,
+interface Account {
+  address: string
+  amount: number
+}
+
+interface TokenHolder {
+  address: string;
+  percent: number;
 }
 
 export default function TokenHolders() {
   const [copied, setCopied] = useState(false) // State to track if address is copied
+  const [holdersData, setHoldersData] = useState<TokenHolder[]>([]); // State to store holders data
+  const [solBalance, setSolBalance] = useState(0);
 
-  const url = `https://mainnet.helius-rpc.com/?api-key=${process.env.HELIOS_APIKEY}`
-  console.log(process.env.HELIOS_API_KEY)
+  const SOL_MINT_ADDRESS = 'So11111111111111111111111111111111111111112';
+  const url = `https://mainnet.helius-rpc.com/?api-key=${process.env.NEXT_PUBLIC_HELIOS_API_KEY}`; // API URL
 
-  const findHolders = async () => {
-    let page = 1
-    let allOwners = new Set()
+  useEffect(() => { // Fetch top 10 holders on component mount
+    const findTop10Holders = async () => {
+      try {
+        let fetchedData: Account[] = [];
 
-    while (true) {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          jsonrpc: '2.0',
-          method: 'getTokenAccounts',
-          id: 'helius-test',
-          params: {
-            page: page,
-            limit: 1000,
-            displayOptions: {},
-            mint: 'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263',
-          },
-        }),
-      })
-      const data = await response.json()
-  }
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              id: '1',
+              jsonrpc: '2.0',
+              method: 'getTokenLargestAccounts',
+              params: [SOL_MINT_ADDRESS, {commitment: 'confirmed', limit: 10}],
+            }),
+          });
+
+          const responseData = await response.json();          
+          if (responseData.result.value) {
+            const accounts:  Account[] = responseData.result.value;
+            
+            // Duyệt qua các tài khoản và lấy ra các thông tin cần thiết
+            for (const account of accounts) {
+              const address = account.address;
+              const amount = account.amount;
+              fetchedData.push({ address, amount });
+            }
+          } else {
+            console.error('Error fetching token holders:', responseData.error);
+          }
+          console.log('fetchedData:', fetchedData);
+      } catch (error) {
+        console.error('Error fetching token holders:', error);
+      }
+    };
+    
+    // findTop10Holders();
+  }, []);
+
+  useEffect(() => { // Fetch SOL balance on component mount
+    const getSolBalance = async () => {
+      try {
+        const options = {
+          method: 'POST',
+          headers: {accept: 'application/json', 'content-type': 'application/json'},
+          body: JSON.stringify({
+            id: 1,
+            jsonrpc: '2.0',
+            method: 'getTokenAccountsByOwner',
+            params: [
+              'CEXq1uy9y15PL2Wb4vDQwQfcJakBGjaAjeuR2nKLj8dk',
+              {mint: '8wXtPeU6557ETkp9WHFY1n1EcU6NxDvbAggHGsMYiHsB'},
+              {encoding: 'jsonParsed'}
+            ]
+          })
+        };
+        
+        fetch('https://nd-326-444-187.p2pify.com/9de47db917d4f69168e3fed02217d15b/', options)
+          .then(response => response.json())
+          .then(response => console.log(response))
+          .catch(err => console.error(err));
+      } catch (error) {
+        console.error('Error fetching SOL balance:', error);
+      }
+    };
+    getSolBalance();
+  } , []);
 
   const copyToClipboard = (address: string) => {
     navigator.clipboard
@@ -113,7 +160,6 @@ export default function TokenHolders() {
       })
       .catch((error) => console.error('Failed to copy:', error)) // Log error if failed
   }
-}
 
   // @ts-ignore
   return (
