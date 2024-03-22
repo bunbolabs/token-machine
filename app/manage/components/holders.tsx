@@ -1,16 +1,17 @@
 'use-client'
 import 'react-toastify/dist/ReactToastify.css'
-import fetch from 'isomorphic-unfetch'
 
 import * as Tooltip from '@radix-ui/react-tooltip'
-import { useEffect, useState } from 'react'
+import { get } from 'http'
+import fetch from 'isomorphic-unfetch'
 import { Copy } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
+
 import { Card, CardContent } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { cn } from '@/lib/utils'
-import { get } from 'http'
 
 interface Account {
   address: string
@@ -35,6 +36,7 @@ export default function TokenHolders() {
     const fetchData = async () => {
       let top10HoldersCache = localStorage.getItem('top10Holders');
       let totalSolSupplyCache = localStorage.getItem('totalSolSupply');
+
       if (top10HoldersCache) {
         setTop10Holders(JSON.parse(top10HoldersCache));
       }
@@ -43,11 +45,13 @@ export default function TokenHolders() {
       }
 
       const [holdersData, solSupply] = await Promise.all([getTop10Holders(), getTotalSupply()]);
+
       if (holdersData) {
         setTop10Holders(holdersData);
       }
       setTotalSolSupply(solSupply);
     }
+    // @ts-ignore
     fetchData();
   }, []);
 
@@ -97,22 +101,27 @@ export default function TokenHolders() {
       })
 
       const responseData = await response.json()
+
       if (responseData.result.value) {
         const accounts: Account[] = responseData.result.value
 
         let count = 0
+
         for (const account of accounts) {
           if (count === 10) break
           const address = account.address
           const amount = account.amount
           const uiAmount = account.uiAmount
+
           fetchedData.push({ address, amount, uiAmount })
           count++
         }
         let top10HoldersData: TokenHolder[] = []
+
         if (totalSolSupply !== 0) {
           fetchedData.forEach((account) => {
             const percent = (account.uiAmount / totalSolSupply) * 100;
+
             top10HoldersData.push({ address: account.address, percent });
           });
 
@@ -120,6 +129,7 @@ export default function TokenHolders() {
           localStorage.removeItem('top10Holders');
           // Lưu dữ liệu vào localStorage
           localStorage.setItem('top10Holders', JSON.stringify(top10Holders));
+
           return top10HoldersData;
         }
       } else {
@@ -154,7 +164,7 @@ export default function TokenHolders() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {top10Holders ? (
+            {top10Holders.length > 0 ? (
               top10Holders.map((row, index) => (
                 <TableRow key={index}>
                   <TableCell>{'#' + (index + 1)}</TableCell>
