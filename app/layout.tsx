@@ -2,7 +2,7 @@ import './globals.css'
 
 import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
-import { Inter } from 'next/font/google'
+import { Be_Vietnam_Pro, Inter } from 'next/font/google'
 
 import { MainNav } from '@/components/main-nav'
 import { SiteHeader } from '@/components/site-header'
@@ -17,7 +17,10 @@ const WalletModal = dynamic(() => import('@/components/wallet-modal'), {
   ssr: false,
 })
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Be_Vietnam_Pro({
+  subsets: ['latin'],
+  weight: ['500', '100', '200', '300', '400', '600', '700', '800', '900'],
+})
 
 export const metadata: Metadata = {
   title: 'Token Machine',
