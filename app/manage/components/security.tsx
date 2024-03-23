@@ -12,13 +12,8 @@ import {
   TableCell,
   TableRow,
 } from '@/components/ui/table'
-  
+
 const data = [
-  [
-    'Creation Tx',
-    'The token is first created at this transaction. There can be several other mint events after this.',
-    '51LeY4T4EbogSb5pwf5MD4EpZXvoHzfoxdQmx5SAcGnC3yNeSwmXiCzRDHZfMek2yi7THC7yqAKBouCyS1utPqf9',
-  ],
   [
     'Creator Address',
     'The contract creator\'s address.',
@@ -30,7 +25,7 @@ const data = [
     '10.99%',
   ],
   [
-    'Update Authority (UA)',
+    'Free Authority',
     'The token\'s update authority address.',
     '4Tj6HGbdRYcKo8pca6JrjnHJCPJsPksaSeQ4tSQWAeS9',
   ],
@@ -38,6 +33,11 @@ const data = [
     'UA Balance',
     'The token balance of token Update Authority.',
     '109.86M',
+  ],
+  [
+    'Current Supply',
+    'The current supply of the token.',
+    '1.00B',
   ],
 ]
 
@@ -50,28 +50,28 @@ export default function TokenSecurity() {
       <CardContent>
         <Table>
           <TableBody>
-                  {
-                    data.map((row, index) => (
-                      <TableRow key={index}>
-                        <TableCell className="font-medium flex items-center gap-1">
-                          <HoverCard>
-                            <HoverCardTrigger>
-                            <Info />
-                            </HoverCardTrigger>
-                            <HoverCardContent>
-                              {row[1]}
-                            </HoverCardContent>
-                          </HoverCard>
-                          {row[0]}
-                        </TableCell>
-                        <TableCell>
-                          {(row[2].length > 10) ? (
-                            <a href={'https://google.com'}>${row[2].slice(0, 5)}...${row[2].slice(-5)}</a>
-                          ) : row[2]}
-                        </TableCell>
-                      </TableRow>
-                    ))
-                  }
+            {
+              data.map((row, index) => (
+                <TableRow key={index}>
+                  <TableCell className="font-medium flex items-center gap-1">
+                    <HoverCard>
+                      <HoverCardTrigger>
+                        <Info />
+                      </HoverCardTrigger>
+                      <HoverCardContent>
+                        {row[1]}
+                      </HoverCardContent>
+                    </HoverCard>
+                    {row[0]}
+                  </TableCell>
+                  <TableCell>
+                    {(row[2].length > 10) ? (
+                      <a href={'https://google.com'}>${row[2].slice(0, 5)}...${row[2].slice(-5)}</a>
+                    ) : row[2]}
+                  </TableCell>
+                </TableRow>
+              ))
+            }
           </TableBody>
         </Table>
       </CardContent>

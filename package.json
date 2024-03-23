@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@ngraveio/bc-ur": "^1.1.9",
+    "@project-serum/serum": "^0.13.65",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-avatar": "^1.0.4",
@@ -37,6 +38,8 @@
     "@solana/web3.js": "^1.90.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "fs": "^0.0.1-security",
+    "graphql-request": "^6.1.0",
     "lucide-react": "^0.358.0",
     "next": "14.0.4",
     "next-themes": "^0.2.1",

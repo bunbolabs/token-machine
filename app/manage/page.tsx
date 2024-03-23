@@ -23,6 +23,7 @@ export default function Page() {
 
           <div className="col-span-3">
             <TokenSentiments />
+            <TokenPools />
           </div>
 
           <div className="col-span-8">
@@ -34,7 +35,7 @@ export default function Page() {
           </div>
 
           <div className="col-span-5">
-            <TokenPools />
+
           </div>
         </div>
       </div>
